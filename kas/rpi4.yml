@@ -1,0 +1,61 @@
+header:
+  version: 14
+
+machine: raspberrypi4-64
+
+distro: defaultsetup
+
+target:
+  - core-image-minimal
+
+repos:
+  bitbake:
+    url: https://git.openembedded.org/bitbake
+    commit: 82abbfcdbda949851a03bb2cb2049ea689564ad6 # 2026-05-21 (2.8)
+    path: external/bitbake
+    layers:
+      layer-path: disabled
+
+  openembedded-core:
+    url: https://git.openembedded.org/openembedded-core
+    branch: scarthgap
+    path: external/openembedded-core
+    layers:
+      meta:
+
+  meta-security:
+    url: https://git.yoctoproject.org/meta-security
+    branch: scarthgap
+    path: external/meta-security
+
+  meta-virtualization:
+    url: https://git.yoctoproject.org/meta-virtualization
+    branch: scarthgap
+    path: external/meta-virtualization
+
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    branch: scarthgap
+    path: external/meta-openembedded
+    layers:
+      meta-oe:
+      meta-python:
+      meta-networking:
+      meta-filesystems:
+      meta-webserver:
+
+  meta-raspberrypi:
+    url: https://git.yoctoproject.org/meta-raspberrypi
+    branch: scarthgap
+    path: external/meta-raspberrypi
+
+local_conf_header:
+  build_settings: |
+    ENABLE_UART = "1"
+    LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
+    PACKAGE_CLASSES = "package_ipk"
+    DISTRO_FEATURES:append = " systemd pam seccomp"
+    DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+    VIRTUAL-RUNTIME_init_manager = "systemd"
+    VIRTUAL-RUNTIME_initscripts = ""
+    DISTRO_FEATURES:append = " usrmerge"

@@ -6,7 +6,7 @@ machine: raspberrypi4-64
 distro: defaultsetup
 
 target:
-  - core-image-minimal
+  - myimage
 
 repos:
   bitbake:
@@ -48,6 +48,9 @@ repos:
     url: https://git.yoctoproject.org/meta-raspberrypi
     branch: scarthgap
     path: external/meta-raspberrypi
+
+  meta-mylayer:
+    path: internal/meta-mylayer
 
 local_conf_header:
   build_settings: |

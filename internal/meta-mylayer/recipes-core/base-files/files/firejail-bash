@@ -1,0 +1,12 @@
+#!/bin/sh
+exec /usr/bin/firejail \
+    --quiet \
+    --private="$HOME" \
+    --private-tmp \
+    --private-dev \
+    --caps.drop=all \
+    --nonewprivs \
+    --nogroups \
+    --seccomp \
+    --protocol=unix,inet,inet6 \
+    /bin/bash -l
